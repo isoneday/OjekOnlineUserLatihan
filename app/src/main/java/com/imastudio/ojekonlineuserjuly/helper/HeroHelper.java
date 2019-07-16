@@ -3,16 +3,20 @@ package com.imastudio.ojekonlineuserjuly.helper;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.provider.Settings.Secure;
@@ -22,6 +26,17 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -59,6 +74,7 @@ public class HeroHelper {
     public static final String BASE_URL_IMAGE = "http://layanan-awan.com/absen/absen_android/uploads/";
     public static final String BASE_URL_IMAGE_PROFILE = "http://layanan-awan.com/absen/absen_android/photo_profile/";
     public static final String BASE_URL_UPLOAD = "http://layanan-awan.com/absen/absen_android/";
+    public static GoogleApiClient googleApiClient;
 
 
     public static void alert(Context context, String title, String message,String textpos) {
@@ -85,6 +101,25 @@ public class HeroHelper {
     }
 
 
+    public static void permission(Activity a) {
+        //cek permission untuk os marshmellow ke atas
+        if (ActivityCompat.checkSelfPermission(a, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(a, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+                    && a.checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED
+                    && a.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                a.requestPermissions(
+                        new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION},
+                        110);
+
+
+            }
+            return;
+        }
+
+    }
     public static String convertStreamToString(InputStream is) throws Exception {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
@@ -610,6 +645,74 @@ public class HeroHelper {
 //            return Build.SERIAL;
 //        }
 //    }
+
+    public static void cekStatusGPS(final Activity c) {
+        // cek sttus gps aktif atau tidak
+        final LocationManager manager = (LocationManager) c.getSystemService(Context.LOCATION_SERVICE);
+        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(c, "Gps already enabled", Toast.LENGTH_SHORT).show();
+            //     finish();
+        }
+        // Todo LocationA Already on  ... end
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            Toast.makeText(c, "Gps not enabled", Toast.LENGTH_SHORT).show();
+            //menampilkan popup untuk mengaktifkan gps
+            if (googleApiClient == null) {
+                googleApiClient = new GoogleApiClient.Builder(c)
+                        .addApi(LocationServices.API)
+                        .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                            @Override
+                            public void onConnected(Bundle bundle) {
+
+                            }
+
+                            @Override
+                            public void onConnectionSuspended(int i) {
+                                googleApiClient.connect();
+                            }
+                        })
+                        .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
+                            @Override
+                            public void onConnectionFailed(ConnectionResult connectionResult) {
+
+                                Log.d("Location error", "Location error " + connectionResult.getErrorCode());
+                            }
+                        }).build();
+                googleApiClient.connect();
+
+                LocationRequest locationRequest = LocationRequest.create();
+                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                locationRequest.setInterval(30 * 1000);
+                locationRequest.setFastestInterval(5 * 1000);
+                LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                        .addLocationRequest(locationRequest);
+
+                builder.setAlwaysShow(true);
+
+                PendingResult<LocationSettingsResult> result =
+                        LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+                result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+                    @Override
+                    public void onResult(LocationSettingsResult result) {
+                        final Status status = result.getStatus();
+                        switch (status.getStatusCode()) {
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                try {
+                                    // Show the dialog by calling startResolutionForResult(),
+                                    // and check the result in onActivityResult().
+                                    status.startResolutionForResult(c, MyContants.REQUEST_LOCATION);
+
+                                    c.finish();
+                                } catch (IntentSender.SendIntentException e) {
+                                    // Ignore the error.
+                                }
+                                break;
+                        }
+                    }
+                });
+            }
+        }
+    }
 
     public static String getDeviceUUID(Context context) {
         final TelephonyManager tm = (TelephonyManager) context

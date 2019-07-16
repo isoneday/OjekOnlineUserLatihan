@@ -1,12 +1,18 @@
 package com.imastudio.ojekonlineuserjuly.network;
 
 
+import com.imastudio.ojekonlineuserjuly.model.ResponseBooking;
+import com.imastudio.ojekonlineuserjuly.model.ResponseDetailDriver;
 import com.imastudio.ojekonlineuserjuly.model.ResponseLoginRegis;
+import com.imastudio.ojekonlineuserjuly.model.ResponseWaitingDriver;
+import com.imastudio.ojekonlineuserjuly.model.ResponseWaypoint;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface RestApi {
 //        //todo 2 set endpoint di api.php
@@ -29,19 +35,19 @@ public interface RestApi {
             @Field("f_email") String stremail
     );
 //
-//    @FormUrlEncoded
-//    @POST("checkBooking")
-//    Call<ResponseWaitingDriver> cekStatusOrder(
-//            @Field("idbooking") String idbooking
+    @FormUrlEncoded
+    @POST("checkBooking")
+    Call<ResponseWaitingDriver> cekStatusOrder(
+            @Field("idbooking") String idbooking
+
+    );
 //
-//    );
-//
-//    @FormUrlEncoded
-//    @POST("get_driver")
-//    Call<ResponseDetailDriver> detailDriver(
-//            @Field("f_iddriver") String f_iddriver
-//
-//    );
+    @FormUrlEncoded
+    @POST("get_driver")
+    Call<ResponseDetailDriver> detailDriver(
+            @Field("f_iddriver") String f_iddriver
+
+    );
 //    @FormUrlEncoded
 //    @POST("insert_review")
 //    Call<ResponseDetailDriver>review(
@@ -71,28 +77,28 @@ public interface RestApi {
 //
 //    );
 ////
-//    @FormUrlEncoded
-//    @POST("insert_booking")
-//    Call<ResponseBooking> insertBooking(
-//            @Field("f_device") String DEVICE,
-//            @Field("f_token") String token,
-//            @Field("f_jarak") Float jarak,
-//            @Field("f_idUser") String iduser,
-//            @Field("f_latAwal") String latwaal,
-//            @Field("f_lngAwal") String lonawal,
-//            @Field("f_awal") String awal,
-//            @Field("f_latAkhir") String latakhir,
-//            @Field("f_lngAkhir") String lonakhir,
-//            @Field("f_akhir") String akhir,
-//            @Field("f_catatan") String catatan
-//    );
+    @FormUrlEncoded
+    @POST("insert_booking")
+    Call<ResponseBooking> insertBooking(
+            @Field("f_device") String DEVICE,
+            @Field("f_token") String token,
+            @Field("f_jarak") Float jarak,
+            @Field("f_idUser") String iduser,
+            @Field("f_latAwal") String latwaal,
+            @Field("f_lngAwal") String lonawal,
+            @Field("f_awal") String awal,
+            @Field("f_latAkhir") String latakhir,
+            @Field("f_lngAkhir") String lonakhir,
+            @Field("f_akhir") String akhir,
+            @Field("f_catatan") String catatan
+    );
 //
-//    @GET("json")
-//    Call<ResponseWaypoint> setRute(
-//            @Query("origin") String origin,
-//            @Query("destination") String destination,
-//            @Query("key") String key
-//    );
+    @GET("json")
+    Call<ResponseWaypoint> setRute(
+            @Query("origin") String origin,
+            @Query("destination") String destination,
+            @Query("key") String key
+    );
 //    @FormUrlEncoded
 //    @POST("complete_booking_from_user")
 //    Call<ResponseHistory> completeBooking(
