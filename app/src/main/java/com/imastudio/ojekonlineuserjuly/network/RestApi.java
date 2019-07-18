@@ -67,15 +67,15 @@ public interface RestApi {
 //            @Field("status") String status,
 //            @Field("f_idUser") String iduser
 //    );
-//
-//    @FormUrlEncoded
-//    @POST("cancel_booking")
-//    Call<ResponseWaitingDriver> cancelBooking(
-//            @Field("idbooking") String idbooking,
-//            @Field("f_device") String device,
-//            @Field("f_token") String token
-//
-//    );
+
+    @FormUrlEncoded
+    @POST("cancel_booking")
+    Call<ResponseWaitingDriver> cancelBooking(
+            @Field("idbooking") String idbooking,
+            @Field("f_device") String device,
+            @Field("f_token") String token
+
+    );
 ////
     @FormUrlEncoded
     @POST("insert_booking")
