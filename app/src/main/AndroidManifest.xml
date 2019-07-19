@@ -33,8 +33,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".DetaillOrderActivity"
+            android:label="@string/title_activity_detaill_order"></activity>
+        <activity
             android:name=".DetailDriverActivity"
-            android:label="@string/title_activity_detail_driver"></activity>
+            android:label="@string/title_activity_detail_driver" />
         <activity android:name=".WaitingDriverActivity" />
 
         <uses-library

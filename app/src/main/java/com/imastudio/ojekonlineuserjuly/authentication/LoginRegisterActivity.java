@@ -148,7 +148,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
                     String iduser = dataLogin.getIdUser();
                     manager.createLoginSession(token);
                     manager.setIduser(iduser);
-                    manager.setDevice(device);
+                    manager.setNama(response.body().getData().getUserNama());
                     //perpindahan halaman
                     finish();
                     startActivity(new Intent(LoginRegisterActivity.this, MainActivity.class));

@@ -2,7 +2,8 @@ package com.imastudio.ojekonlineuserjuly.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DataItem{
+
+public class DataDetailDriver {
 
 	@SerializedName("user_avatar")
 	private Object userAvatar;

@@ -14,7 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.imastudio.ojekonlineuserjuly.model.DataItem;
+import com.imastudio.ojekonlineuserjuly.model.DataDetailDriver;
 import com.imastudio.ojekonlineuserjuly.model.ResponseDetailDriver;
 import com.imastudio.ojekonlineuserjuly.network.InitRetrofit;
 
@@ -45,7 +45,7 @@ public class DetailDriverActivity extends FragmentActivity implements OnMapReady
     LinearLayout linear1;
     private GoogleMap mMap;
     private String iddriver;
-    private List<DataItem> dataDriver;
+    private List<DataDetailDriver> dataDriver;
     private double latdriver;
     private double londriver;
     private LatLng posisidriver;

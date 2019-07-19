@@ -3,6 +3,7 @@ package com.imastudio.ojekonlineuserjuly.network;
 
 import com.imastudio.ojekonlineuserjuly.model.ResponseBooking;
 import com.imastudio.ojekonlineuserjuly.model.ResponseDetailDriver;
+import com.imastudio.ojekonlineuserjuly.model.ResponseHistory;
 import com.imastudio.ojekonlineuserjuly.model.ResponseLoginRegis;
 import com.imastudio.ojekonlineuserjuly.model.ResponseWaitingDriver;
 import com.imastudio.ojekonlineuserjuly.model.ResponseWaypoint;
@@ -59,15 +60,23 @@ public interface RestApi {
 //            @Field("f_ratting") String rating,
 //            @Field("f_comment") String comment
 //    );
-//    @FormUrlEncoded
-//    @POST("get_booking")
-//    Call<ResponseHistory> getDataHistory(
-//            @Field("f_token") String token,
-//            @Field("f_device") String device,
-//            @Field("status") String status,
-//            @Field("f_idUser") String iduser
-//    );
+    @FormUrlEncoded
+    @POST("get_booking")
+    Call<ResponseHistory> getDataHistory(
+            @Field("f_token") String token,
+            @Field("f_device") String device,
+            @Field("status") String status,
+            @Field("f_idUser") String iduser
+    );
 
+    @FormUrlEncoded
+    @POST("get_complete_booking")
+    Call<ResponseHistory> getDataComplete(
+            @Field("f_token") String token,
+            @Field("f_device") String device,
+            @Field("status") String status,
+            @Field("f_idUser") String iduser
+    );
     @FormUrlEncoded
     @POST("cancel_booking")
     Call<ResponseWaitingDriver> cancelBooking(
@@ -99,13 +108,13 @@ public interface RestApi {
             @Query("destination") String destination,
             @Query("key") String key
     );
-//    @FormUrlEncoded
-//    @POST("complete_booking_from_user")
-//    Call<ResponseHistory> completeBooking(
-//            @Field("f_idUser") String iddriver,
-//            @Field("id") String idbooking,
-//            @Field("f_device") String device,
-//            @Field("f_token") String token
-//
-//    );
+    @FormUrlEncoded
+    @POST("complete_booking_from_user")
+    Call<ResponseHistory> completeBooking(
+            @Field("f_idUser") String iddriver,
+            @Field("id") String idbooking,
+            @Field("f_device") String device,
+            @Field("f_token") String token
+
+    );
 }

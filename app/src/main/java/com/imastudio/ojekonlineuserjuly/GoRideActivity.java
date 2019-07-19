@@ -198,6 +198,7 @@ public class GoRideActivity extends FragmentActivity implements OnMapReadyCallba
                    int idbooking =response.body().getIdBooking();
                    Intent a = new Intent(GoRideActivity.this,WaitingDriverActivity.class);
                    a.putExtra("idbooking",idbooking);
+                   manager.setBooking(String.valueOf(idbooking));
                    startActivity(a);
                 }else{
                     Toast.makeText(GoRideActivity.this, msg, Toast.LENGTH_SHORT).show();

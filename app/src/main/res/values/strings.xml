@@ -15,5 +15,6 @@
     <string name="posregis">iya</string>
     <string name="neregis">tidak</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_detaill_order">Map</string>
 
 </resources>

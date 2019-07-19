@@ -92,6 +92,15 @@ public class SessionManager {
         return pref.getString("id_user", "");
     }
 
+    public void setBooking(String idbooking) {
+        editor.putString("idbooking", idbooking);
+        editor.commit();
+    }
+
+    public String getBooking() {
+        return pref.getString("idbooking", "");
+    }
+
 
     public void setDevice(String id_user) {
         editor.putString("device", id_user);

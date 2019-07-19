@@ -4,7 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ResponseDetailDriver{
+
+public class ResponseHistory{
 
 	@SerializedName("result")
 	private String result;
@@ -13,7 +14,7 @@ public class ResponseDetailDriver{
 	private String msg;
 
 	@SerializedName("data")
-	private List<DataDetailDriver> data;
+	private List<DataHistory> data;
 
 	public void setResult(String result){
 		this.result = result;
@@ -31,11 +32,11 @@ public class ResponseDetailDriver{
 		return msg;
 	}
 
-	public void setData(List<DataDetailDriver> data){
+	public void setData(List<DataHistory> data){
 		this.data = data;
 	}
 
-	public List<DataDetailDriver> getData(){
+	public List<DataHistory> getData(){
 		return data;
 	}
 }
