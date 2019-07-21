@@ -49,17 +49,17 @@ public interface RestApi {
             @Field("f_iddriver") String f_iddriver
 
     );
-//    @FormUrlEncoded
-//    @POST("insert_review")
-//    Call<ResponseDetailDriver>review(
-//            @Field("f_token") String token,
-//            @Field("f_device") String device,
-//            @Field("f_idUser") String iduser,
-//            @Field("f_driver") String iddriver,
-//            @Field("f_idBooking") String idbooking,
-//            @Field("f_ratting") String rating,
-//            @Field("f_comment") String comment
-//    );
+    @FormUrlEncoded
+    @POST("insert_review")
+    Call<ResponseDetailDriver>review(
+            @Field("f_token") String token,
+            @Field("f_device") String device,
+            @Field("f_idUser") String iduser,
+            @Field("f_driver") String iddriver,
+            @Field("f_idBooking") String idbooking,
+            @Field("f_ratting") String rating,
+            @Field("f_comment") String comment
+    );
     @FormUrlEncoded
     @POST("get_booking")
     Call<ResponseHistory> getDataHistory(

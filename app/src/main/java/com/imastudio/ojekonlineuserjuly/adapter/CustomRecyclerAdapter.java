@@ -50,12 +50,19 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                 if (i==2){
 
                     Intent intent = new Intent(activity, DetaillOrderActivity.class);
+                    intent.putExtra(MyContants.IDDRIVER,dataHistory.get(position).getBookingDriver());
+                    intent.putExtra(MyContants.IDBOOKING,dataHistory.get(position).getIdBooking());
+
                     intent.putExtra(MyContants.INDEX,position);
                     intent.putExtra(MyContants.STATUS,i);
                     activity.startActivity(intent);
                 }
                 else{
+
                     Intent intent = new Intent(activity,DetaillOrderActivity.class);
+                    intent.putExtra(MyContants.IDDRIVER,dataHistory.get(position).getBookingDriver());
+                    intent.putExtra(MyContants.IDBOOKING,dataHistory.get(position).getIdBooking());
+
                     intent.putExtra(MyContants.INDEX,position);
                     intent.putExtra(MyContants.STATUS,i);
                     activity.startActivity(intent);

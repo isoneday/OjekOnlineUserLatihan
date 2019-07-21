@@ -1,6 +1,7 @@
 package com.imastudio.ojekonlineuserjuly;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.LinearLayout;
@@ -147,5 +148,11 @@ public class DetailDriverActivity extends FragmentActivity implements OnMapReady
 
     @OnClick(R.id.txthpdriver)
     public void onViewClicked() {
+        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+dataDriver.get(0).getUserHp())));
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(DetailDriverActivity.this,HistoryActivity.class));
     }
 }

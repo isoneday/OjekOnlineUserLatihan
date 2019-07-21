@@ -65,6 +65,8 @@ public class DetaillOrderActivity extends FragmentActivity implements OnMapReady
     private int index;
     private int status;
     private DataHistory dataHistory;
+    private String iddriver;
+    private String idboking;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,8 @@ public class DetaillOrderActivity extends FragmentActivity implements OnMapReady
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapDetail);
         mapFragment.getMapAsync(this);
-
+        iddriver =getIntent().getStringExtra(MyContants.IDDRIVER);
+        idboking = getIntent().getStringExtra(MyContants.IDBOOKING);
         index = getIntent().getIntExtra(MyContants.INDEX, 0);
         status = getIntent().getIntExtra(MyContants.STATUS, 0);
         if (status==2){
@@ -173,5 +176,10 @@ public class DetaillOrderActivity extends FragmentActivity implements OnMapReady
 
     @OnClick(R.id.CompleteBooking)
     public void onViewClicked() {
+        Intent intent =new Intent(DetaillOrderActivity.this,ReviewActivityActivity.class);
+        intent.putExtra(MyContants.IDDRIVER, iddriver);
+
+        intent.putExtra(MyContants.IDBOOKING, idboking);
+        startActivity(intent);
     }
 }

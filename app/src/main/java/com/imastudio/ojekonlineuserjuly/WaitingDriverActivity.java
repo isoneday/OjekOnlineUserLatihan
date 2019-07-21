@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.imastudio.ojekonlineuserjuly.helper.HeroHelper;
+import com.imastudio.ojekonlineuserjuly.helper.MyContants;
 import com.imastudio.ojekonlineuserjuly.helper.SessionManager;
 import com.imastudio.ojekonlineuserjuly.model.ResponseWaitingDriver;
 import com.imastudio.ojekonlineuserjuly.network.InitRetrofit;
@@ -81,8 +82,9 @@ public class WaitingDriverActivity extends AppCompatActivity {
                 if (result.equals("true")){
                   String  iddriver = response.body().getDriver();
                     Intent i = new Intent(WaitingDriverActivity.this, DetailDriverActivity.class);
-                    i.putExtra("iddriver", iddriver);
+                    i.putExtra(MyContants.IDDRIVER, iddriver);
                     startActivity(i);
+                    finish();
                     Toast.makeText(WaitingDriverActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(WaitingDriverActivity.this, msg, Toast.LENGTH_SHORT).show();
